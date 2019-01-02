@@ -101,21 +101,25 @@ public class GUI extends JFrame {
 		Menu menu = new Menu("Menu");
 		MenuItem item1 = new MenuItem("Load File");
 		MenuItem item2 = new MenuItem("Run");
-		MenuItem item3 = new MenuItem("Clear");
-
+		MenuItem item3 = new MenuItem("Run Simulation");
+		MenuItem item4 = new MenuItem("Clear");
+		
 		// defining "insert" menu titles
 		Menu menu2 = new Menu("Insert");
-		MenuItem item4 = new MenuItem("Add Player");
-		MenuItem item5 = new MenuItem("Relocate Player");
-
+		MenuItem item5 = new MenuItem("Add Player");
+		MenuItem item6 = new MenuItem("Relocate Player");
+		
+		
 		menuBar.add(menu);
 		menu.add(item1);
 		menu.add(item2);
 		menu.add(item3);
+		menu.add(item4);
+
 
 		menuBar.add(menu2);
-		menu2.add(item4);
 		menu2.add(item5);
+		menu2.add(item6);
 
 		menu.setFont(new Font("Courier New", Font.ITALIC, 12));
 		menu2.setFont(new Font("Courier New", Font.ITALIC, 12));
@@ -126,7 +130,7 @@ public class GUI extends JFrame {
 		item1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//loadFile(); 
+				p.clear();
 				p.loadFile(GUI.this); //need to debug at the panel
 				p.fileLoaded=true;
 
@@ -139,9 +143,18 @@ public class GUI extends JFrame {
 				p.startPlay(GUI.this);
 			}
 		});
+		
+		//run simulation method
+		item3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				p.startSimu(GUI.this);
+			}
+		});
 
 		// Clear Method from the "Menu" menu
-		item3.addActionListener(new ActionListener() {
+		item4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p.clear();
@@ -150,7 +163,7 @@ public class GUI extends JFrame {
 		});
 		
 		//insert player button
-		item4.addActionListener(new ActionListener() {
+		item5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(p.fileLoaded==false) {
@@ -161,7 +174,7 @@ public class GUI extends JFrame {
 			}
 		});
 		//relocate player
-		item5.addActionListener(new ActionListener() {
+		item6.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!p.playerExist) return ;// if the player yet be located return witour doing nothing
@@ -169,6 +182,8 @@ public class GUI extends JFrame {
 				p.addPlayer = true;
 			}
 		});
+		
+		
 
 	}
 

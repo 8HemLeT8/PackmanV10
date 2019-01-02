@@ -50,10 +50,8 @@ public class myPanel extends JPanel implements MouseListener {
 	Play play;
 	Point3D directionPoint = new Point3D(0, 0, 0);
 	boolean addPlayer, playerExist ,fileLoaded;
-	double ratioWidth;
-	double ratioHeight;
 	int x = -1, y = -1;
-	double rotationRequired = 0;
+	double rotationRequired = 90;
 	private BufferedImage myImage = null;
 
 	public myPanel() {
@@ -87,11 +85,11 @@ public class myPanel extends JPanel implements MouseListener {
 				itBox = game.boxes.iterator();
 				while (itBox.hasNext()) {
 					Box box = itBox.next();
-					int deltaX = (int) (box.getLocationInPixelsMax().x() - box.getLocationInPixelsMin().x());
-					int deltaY = (int) (box.getLocationInPixelsMin().y() - box.getLocationInPixelsMax().y());
+					int deltaX = (int) (box.getMaxInPixels().x() - box.getMinInPixels().x());
+					int deltaY = (int) (box.getMinInPixels().y() - box.getMaxInPixels().y());
 
-					g.fillRect((int) (box.getLocationInPixelsMin().x() * GUI.ratioWidth),
-							(int) (box.getLocationInPixelsMax().y() * GUI.ratioHeight), (int) (deltaX * GUI.ratioWidth),
+					g.fillRect((int) (box.getMinInPixels().x() * GUI.ratioWidth),
+							(int) (box.getMaxInPixels().y() * GUI.ratioHeight), (int) (deltaX * GUI.ratioWidth),
 							(int) (deltaY * GUI.ratioHeight));
 				}
 				if (addPlayer && !playerExist) { // if the addPlayer has been pressed&&the player isnt in the map yet
@@ -107,7 +105,7 @@ public class myPanel extends JPanel implements MouseListener {
 				if (playerExist) {
 					//System.out.println(rotationRequired); // calculate angle in degrees
 					AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(rotationRequired),
-							playerImage.getWidth() / 2, playerImage.getHeight() / 2); // set up image rotation configuration
+							playerImage.getWidth()*GUI.ratioWidth/ 2, playerImage.getHeight()*GUI.ratioHeight / 2); // set up image rotation configuration
 					AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 					// Drawing the rotated image at the required drawing locations
 					g.drawImage((op.filter(playerImage, null)), (int) (game.player.getLocationInPixels().x() * GUI.ratioWidth),
@@ -159,6 +157,7 @@ public class myPanel extends JPanel implements MouseListener {
 			directionPoint = new Point3D(e.getX(), e.getY(), 0);
 			rotationRequired = 360
 					- (orientation(game.player.getPoint(), Map.pixels2polar(directionPoint.ix(), directionPoint.iy())));
+			System.out.println(rotationRequired);
 		}
 		repaint();
 
@@ -238,6 +237,11 @@ public class myPanel extends JPanel implements MouseListener {
 	public void startPlay(GUI gui) {
 		if (playerExist) {
 			new myThread(this).start();
+		}
+	}
+	public void startSimu(GUI gui) {
+		if (playerExist) {
+			new MyThreadSimu(this).start();
 		}
 	}
 
