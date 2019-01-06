@@ -24,7 +24,7 @@ public class myThread extends Thread{
 		System.out.println(panel.rotationRequired+90); //DEBUG
 		
 		
-		while(panel.game.fruits.size()>0&&panel.play.isRuning()) {  //while there is still fruit and the time isn't over
+		while(panel.play.isRuning()) {  //while there is still fruit and the time isn't over
 			panel.play.rotate((panel.rotationRequired+90)); //passing the "player" angle and make the server do one step
 			myGame=panel.play.getBoard();           //getting the stats from the board for the next step
 			synchronized (panel.game) {		
@@ -38,11 +38,10 @@ public class myThread extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			
+			
 		}
-		panel.play.stop();
-		//add pop up message (why the game has ended),
-		//it due to time running or fruits are over + game statistics 
+		
 		String statistics= panel.play.getStatistics();
 		
 		//game over cause
@@ -61,7 +60,8 @@ public class myThread extends Thread{
 			 +splitStat[4]+"\n" //kill by ghosts
 			 +splitStat[5],		//out of box
 			 "Game Over : " + reason); //title
-		
+		System.out.println("time left : "+splitStat[3]);
+		System.out.println("score : " + splitStat[2] );		
 	}
 
 	//reseting the game for the next step
