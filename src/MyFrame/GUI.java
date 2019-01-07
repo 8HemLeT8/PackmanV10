@@ -100,27 +100,34 @@ public class GUI extends JFrame {
 		// defining "Menu" menu titles
 		Menu menu = new Menu("Menu");
 		MenuItem item1 = new MenuItem("Load File");
-		MenuItem item2 = new MenuItem("Run");
-		MenuItem item3 = new MenuItem("Run Simulation");
 		MenuItem item4 = new MenuItem("Clear");
+		MenuItem item7 = new MenuItem("Show statistics");
 		
 		// defining "insert" menu titles
 		Menu menu2 = new Menu("Insert");
 		MenuItem item5 = new MenuItem("Add Player");
 		MenuItem item6 = new MenuItem("Relocate Player");
 		
+		Menu menu3 = new Menu("Run");
+		MenuItem item2 = new MenuItem("Run");
+		MenuItem item3 = new MenuItem("Run Simulation");
+		
 		
 		menuBar.add(menu);
 		menu.add(item1);
-		menu.add(item2);
-		menu.add(item3);
 		menu.add(item4);
-
+		menu.add(item7);
 
 		menuBar.add(menu2);
 		menu2.add(item5);
 		menu2.add(item6);
 
+		menuBar.add(menu3);
+		menu3.add(item2);
+		menu3.add(item3);
+
+		
+		
 		menu.setFont(new Font("Courier New", Font.ITALIC, 12));
 		menu2.setFont(new Font("Courier New", Font.ITALIC, 12));
 
@@ -180,6 +187,13 @@ public class GUI extends JFrame {
 				if(!p.playerExist) return ;// if the player yet be located return witour doing nothing
 				p.playerExist = false;
 				p.addPlayer = true;
+			}
+		});
+		
+		item7.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Statistics.showStatistics();				
 			}
 		});
 		
