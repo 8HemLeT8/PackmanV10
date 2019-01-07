@@ -36,7 +36,7 @@ public class MyThreadSimu extends Thread{
 		
 		
 		// @@@@@@ SIMULATION STARTS @@@@@@@
-		while(panel.game.fruits.size()>0 && panel.play.isRuning()) {
+		while( panel.play.isRuning()) {
 			
 			Point3D currentSrc = new Point3D(panel.game.player.getLocationInPixels().x()  //maybe swap is needed
 					,panel.game.player.getLocationInPixels().y()); // between x&y .src point to send to the path
