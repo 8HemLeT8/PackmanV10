@@ -21,10 +21,12 @@ CSV example files are attached.
 There are two options running the game :
 
 1. **Auto Mode** 
+
 	![Image description](https://github.com/Sniryefet/papi3/blob/master/Pictures/run%20simulation.PNG)
 	
    
 2. **Manual Mode**
+
 	 ![Image description](https://github.com/Sniryefet/papi3/blob/master/Pictures/manual%20run.PNG)
 
 
