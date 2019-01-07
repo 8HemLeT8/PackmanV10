@@ -31,7 +31,7 @@ There are two options running the game :
 	Then the game will start running .
 	
 	**How the player is moving?**
-	After "Run" was activated and the game is running "player" movement is mouse sensative moving the "player" to the location of the mouse clicks.
+	After "Run" was activated and the game is running "player" movement is mouse sensative moving the "player" to the location of the mouse click.
 	
 2. **Manual Mode**
 
@@ -44,3 +44,16 @@ There are two options running the game :
 
 The algorithm we used calculating the path for the "player" is  based on Dijkstra algorithm
 gettting the minimum distance from the player for a given fruit , Then going over all the fruits getting the minmum of all distances.
+
+## Your Score :tw-1f44a: 
+
+In the end of the game you will see your score.
+
+ The score is being calculated like so :
+ 
+ * for each fruit eaten by the player you will get 1 point
+ * Same rule stands for eating packman( 1 point)
+ * The game is over when 100 seconds passed or all fruits were eaten. 
+ You will get bonus points of 1 point for every second left (Incase all fruits were eaten).
+
+
