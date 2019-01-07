@@ -23,11 +23,21 @@ There are two options running the game :
 1. **Auto Mode** 
 
 	![Image description](https://github.com/Sniryefet/papi3/blob/master/Pictures/run%20simulation.PNG)
+
+	### How it works
 	
-   
+	After uploading a file , setting your player locations using "Insert" --> "Insert Player" 
+	Click on "Run" as specified in the picture above.
+	Then the game will start running .
+	
+	**How the player is moving?**
+	After "Run" was activated and the game is running "player" movement is mouse sensative moving the "player" to the location of the mouse clicks.
+	
 2. **Manual Mode**
 
 	 ![Image description](https://github.com/Sniryefet/papi3/blob/master/Pictures/manual%20run.PNG)
+	 
+	 In this mode the player is moving automatically based on Dijkstra algorithm.
 
 
 ## Auto Mode Algorithm
