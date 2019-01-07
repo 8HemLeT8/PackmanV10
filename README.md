@@ -45,7 +45,7 @@ There are two options running the game :
 The algorithm we used calculating the path for the "player" is  based on Dijkstra algorithm
 gettting the minimum distance from the player for a given fruit , Then going over all the fruits getting the minmum of all distances.
 
-## Your Score : tw-1f44a: 
+## Your Score :  
 
 In the end of the game you will see your score.
 
