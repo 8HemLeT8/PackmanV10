@@ -8,7 +8,9 @@ public class Box implements Types{
 	Point3D maxPoint;
 	private Map map =new Map();
 
-	
+	/*
+	 * @param getting data for the constructor
+	 */
 	public Box(String ID ,String Lat1 ,String Lon1, String Lat2 ,String Lon2) {
 		double Lat=Double.parseDouble(Lat1);
 		double Lon=Double.parseDouble(Lon1);
@@ -18,27 +20,42 @@ public class Box implements Types{
 		this.maxPoint = new Point3D(Lat22,Lon22,0);
 
 	}
-
+	
+	/*
+	 * @return return the point
+	 */
 	public Point3D getminPoint() {
 		return minPoint;
 	}
 	
-
+	/*
+	 * setting the point
+	 */
 	public void setminPoint(Point3D minPoint) {
 		this.minPoint = minPoint;
 	}
 
-
+	/*
+	 * @return return get max point
+	 */
 	public Point3D getmaxPoint() {
 		return maxPoint;
 	}
-
+	/*
+	 * set max point
+	 */
 	public void setmaxPoint(Point3D maxPoint) {
 		this.maxPoint = maxPoint;
 	}
+	/*
+	 * @return return min point in pixel
+	 */
 	public Point3D getMinInPixels() {
 		return map.polar2pixels(minPoint);
 	}
+	/*
+	 * @return return max in pixels
+	 */
 	public Point3D getMaxInPixels() {
 		return map.polar2pixels(maxPoint);
 	}

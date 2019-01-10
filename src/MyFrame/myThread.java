@@ -11,10 +11,18 @@ import Geom.Point3D;
 public class myThread extends Thread{
 	myPanel panel=new myPanel();
 	ArrayList<String> myGame = new ArrayList(); //holding current game info
-
+	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public myThread (myPanel panel) {
 		this.panel=panel;
 	}
+	/*
+	 * java run method
+	 * (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	public void run(){
 		if(panel.play==null||panel.playerExist==false) return;
 		panel.play.setIDs(1911,1502); //setting my id and deliever it to the server
@@ -22,8 +30,8 @@ public class myThread extends Thread{
 		panel.play.setInitLocation(playerPosition.y()*GUI.ratioHeight,playerPosition.x()*GUI.ratioWidth);
 		panel.play.start(); // default max time is 100 seconds (1000*100 ms).
 		System.out.println(panel.rotationRequired+90); //DEBUG
-		
-		
+
+
 		while(panel.play.isRuning()) {  //while there is still fruit and the time isn't over
 			panel.play.rotate((panel.rotationRequired+90)); //passing the "player" angle and make the server do one step
 			myGame=panel.play.getBoard();           //getting the stats from the board for the next step
@@ -38,39 +46,45 @@ public class myThread extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
+
 		}
-		
+
 		String statistics= panel.play.getStatistics();
-		
+
 		//game over cause
 		String reason;
 		if(panel.game.fruits.size()>0)
 			reason = " Time is over";
 		else 
 			reason = " All fruits were eaten";
-		
+
 		//split statistics for the popup message
 		String [] splitStat =statistics.split(",");
 		panel.popUp(splitStat[0]+"\n" //date time
-			 +splitStat[1]+"\n" //total time
-			 +splitStat[3]+"\n" //time left
-			 +splitStat[2]+"\n" // score
-			 +splitStat[4]+"\n" //kill by ghosts
-			 +splitStat[5],		//out of box
-			 "Game Over : " + reason); //title
+				+splitStat[1]+"\n" //total time
+				+splitStat[3]+"\n" //time left
+				+splitStat[2]+"\n" // score
+				+"Average score on this map: "+Statistics.getAverageScore(GUI.mapName)+"\n"
+				+"Best score on this map: "+Statistics.getBestScore(GUI.mapName)+"\n"
+				+"Best score on this map: "
+				+splitStat[4]+"\n" //kill by ghosts
+				+splitStat[5],		//out of box
+				"Game Over : " + reason); //title
 		System.out.println("time left : "+splitStat[3]);
 		System.out.println("score : " + splitStat[2] );		
 	}
 
 	//reseting the game for the next step
+	/*
+	 * game reset function
+	 */
 	private void gameReset() {
 		panel.game.boxes.clear();
 		panel.game.fruits.clear();
 		panel.game.ghosts.clear();
 		panel.game.packmans.clear();	
 	}
-	
-	
+
+
 }

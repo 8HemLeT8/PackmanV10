@@ -53,7 +53,10 @@ public class myPanel extends JPanel implements MouseListener {
 	int x = -1, y = -1;
 	double rotationRequired = 90;
 	private BufferedImage myImage = null;
-
+	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public myPanel() {
 		this.addMouseListener(this);
 
@@ -69,16 +72,17 @@ public class myPanel extends JPanel implements MouseListener {
 			System.out.println(e);
 		}
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 * paint method
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(myImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		if (x != -1 && y != -1) {
 			int r = 20;
-			x = x - (r / 2 + 10);
-			y = y - (r / 2 + 10);
-
-
+			
 			// print boxes
 			synchronized (game) {
 
@@ -89,7 +93,7 @@ public class myPanel extends JPanel implements MouseListener {
 					int deltaY = (int) (box.getMinInPixels().y() - box.getMaxInPixels().y());
 
 					g.fillRect((int) (box.getMinInPixels().x() * GUI.ratioWidth),
-							(int) (box.getMaxInPixels().y() * GUI.ratioHeight), (int) (deltaX * GUI.ratioWidth),
+							(int) (box.getMaxInPixels().y() * GUI.ratioHeight+10), (int) (deltaX * GUI.ratioWidth+20),
 							(int) (deltaY * GUI.ratioHeight));
 				}
 				if (addPlayer && !playerExist) { // if the addPlayer has been pressed&&the player isnt in the map yet
@@ -199,8 +203,13 @@ public class myPanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-
-	public void loadFile(GUI gui) {
+	
+	/*
+	 * loading the file
+	 * @return the string of the csv file
+	 * @param geting the gui
+	 */
+	public String loadFile(GUI gui) {
 		// try read from the file (Copied code from Elizabeth )
 		FileDialog fd = new FileDialog(gui, "Open text file", FileDialog.LOAD);
 		fd.setFile("*.csv");
@@ -223,22 +232,32 @@ public class myPanel extends JPanel implements MouseListener {
 			this.repaint();
 
 		}
-
+		return fileName;
 	}
 	
 	//pop up message for the game results
 	//credit for https://stackoverflow.com/questions/7080205/popup-message-boxes
+	/*
+	 * @param info and title 
+	 * show the message
+	 */
 	public void popUp(String infoMessage, String titleBar)
 	{
 		JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
 	}
 
-
+	/*
+	 * @param setting GUI 
+	 * RUN GAME
+	 */
 	public void startPlay(GUI gui) {
 		if (playerExist) {
 			new myThread(this).start();
 		}
 	}
+	/*
+	 * @param setting GUI run activated
+	 */
 	public void startSimu(GUI gui) {
 		if (playerExist) {
 			new MyThreadSimu(this).start();

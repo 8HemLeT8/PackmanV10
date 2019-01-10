@@ -20,7 +20,7 @@ public class Game {
 /*
  * @param String filePath getting a file from the user 
  * (not with "insert" at the manu bar list)
- * , analaize it to fruits and packman with the reader and the type maker 	
+ * , analaize it to fruits and packman with the reader and the type maker  	
  */
 public void buildAgame(ArrayList<String> table) {
 	ArrayList<Types> types = new ArrayList<Types>();

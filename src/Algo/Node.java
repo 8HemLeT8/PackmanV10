@@ -42,6 +42,11 @@ public class Node
     {
         return this._info;
     }
+    
+    public void set_info(Node_Info info)
+    {
+        this._info = info;
+    }
 
     public void set_pos(Node_Info ni)
     {

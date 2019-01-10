@@ -4,8 +4,8 @@ import GIS.*;
 import Geom.Point3D;
 
 public class Map {
-	static double rangeXpixels=1433;
-	static double rangeYpixels=-642;
+	static double rangeXpixels=1418;
+	static double rangeYpixels=-584;
 	static double rangeXpolar=0.0100;
 	static double rangeYpolar=0.0038;
 	static double PolarX0=35.2023;

@@ -53,7 +53,11 @@ public class GUI extends JFrame {
 	public static double ratioHeight;
 	Dimension dimensionSize = new Dimension();
 	myPanel p = new myPanel();
-
+	public static String mapName="";
+	
+	/*
+	 * GUI CONSTRUCTOR
+	 */
 	public GUI() {
 		try {
 			backgroundImage = ImageIO.read(new File("Ariel1.png"));
@@ -93,7 +97,10 @@ public class GUI extends JFrame {
 		colorsArr[12] = Color.BLACK;
 
 	}
-
+	
+	/*
+	 * Gui main function gui START
+	 */
 	private void startGUI() {
 		MenuBar menuBar = new MenuBar();
 
@@ -109,8 +116,8 @@ public class GUI extends JFrame {
 		MenuItem item6 = new MenuItem("Relocate Player");
 		
 		Menu menu3 = new Menu("Run");
-		MenuItem item2 = new MenuItem("Run");
-		MenuItem item3 = new MenuItem("Run Simulation");
+		MenuItem item2 = new MenuItem("Manual Run");
+		MenuItem item3 = new MenuItem("Auto Run");
 		
 		
 		menuBar.add(menu);
@@ -138,9 +145,9 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p.clear();
-				p.loadFile(GUI.this); //need to debug at the panel
+				mapName=p.loadFile(GUI.this); //need to debug at the panel
 				p.fileLoaded=true;
-
+				
 			}
 		});
 		// run activated
@@ -200,11 +207,15 @@ public class GUI extends JFrame {
 		
 
 	}
-
+	/*
+	 * load the file
+	 */
 	public void loadFile() {
 		p.loadFile(this);
 	}
-
+	/*
+	 * RUN THE PROGRAM
+	 */
 	public static void main(String[] args) {
 		new GUI();
 	}
