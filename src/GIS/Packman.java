@@ -2,8 +2,14 @@ package GIS;
 
 import Geom.Point3D;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.imageio.ImageIO;
+
 import GIS.*;
 import MyFrame.Map;
 
@@ -15,6 +21,7 @@ public class Packman implements Types{
 	private double r;
 	Map M=new Map();
 	public Path path;
+	public static BufferedImage packmanImage;
 
 
 	/*
@@ -31,7 +38,8 @@ public class Packman implements Types{
 		this.p = new Point3D(Lat,Lon,Alt);
 		this.speed=Speed;
 		this.r=radius;
-	
+		try { packmanImage = ImageIO.read(new File("packman1.png"));}
+		catch(IOException e){System.out.println(e);}
 	}
 	
 	 
@@ -43,7 +51,8 @@ public class Packman implements Types{
 		this.speed=Speed;
 		this.r=radius;
 		this.id=id;
-		
+		try { packmanImage = ImageIO.read(new File("packman1.png"));}
+		catch(IOException e){System.out.println(e);}
 	}
 	/*
 	 * Constructor for packman in pixel
@@ -53,7 +62,8 @@ public class Packman implements Types{
 		this.speed=1;
 		this.r=1;
 		this.id=this.tempId++;
-		
+		try { packmanImage = ImageIO.read(new File("packman1.png"));}
+		catch(IOException e){System.out.println(e);}
 	}
 	public void setNewCoords(int id,double Lat ,double Lon ,double Alt) { //
 		this.id=id;

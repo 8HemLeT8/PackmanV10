@@ -27,7 +27,8 @@ public class MyThreadSimu extends Thread{
 	 * (non-Javadoc)
 	 * @see java.lang.Thread#run()
 	 */
-	public void run() {
+	public void run() 
+	{
 
 		//return if there is no player,fruits or the play object isn't initilaized
 		if(panel.game.fruits.size()==0 || panel.playerExist==false || panel.play==null) return ; 
@@ -37,7 +38,7 @@ public class MyThreadSimu extends Thread{
 
 		panel.play.setIDs(1911,1502); //setting our id and deliever it to the server
 		Point3D playerPosition = panel.game.player.getPoint();
-		panel.play.setInitLocation(playerPosition.y()*GUI.ratioHeight,playerPosition.x()*GUI.ratioWidth);
+		panel.play.setInitLocation(playerPosition.y(),playerPosition.x());
 		panel.play.start(); // default max time is 100 seconds (1000*100 ms).
 		double speed = panel.game.player.getSpeed();  //packman's speed
 
@@ -46,14 +47,15 @@ public class MyThreadSimu extends Thread{
 
 
 		// @@@@@@ SIMULATION STARTS @@@@@@@
-		while(panel.play.isRuning()) {
-
+		while(panel.play.isRuning()) 
+		{
+			System.out.println("in While");
 			Point3D currentSrc = new Point3D(panel.game.player.getLocationInPixels().x()  //maybe swap is needed
 					,panel.game.player.getLocationInPixels().y()); // between x&y .src point to send to the path
 
 			//setting shortest path to a fruit
 			path=Algo.PathMaker.graphMake(panel.game.boxes,panel.game.fruits,currentSrc); //
-			if(path.size()<2) return; 			//if the path contains only the src himself return we've finished
+			if(path.size()<2) break; 			//if the path contains only the src himself return we've finished
 			System.out.println("~~~~~~~~~~~~~~ DEBUG  ~~~~~~~~~~~~~~~~~" );
 			System.out.println(path);
 			//System.out.println(path);
@@ -87,16 +89,18 @@ public class MyThreadSimu extends Thread{
 				gameReset();
 				panel.game.buildAgame(panel.play.getBoard()); //building new game object for the new step
 			}
+			panel.rotationRequired=getAngle(endPoint);
 			panel.repaint();    //updating the linked panel
 			try {
-				Thread.sleep(65);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			//~~~~set panel.game.player new location for the last point in the path and remove the fruit~~~~
 			//maybe the server does it for us
+			
+			
 		}//SECOND "WHILE" END (NO MORE FRUITS || TIME IS OVER)
 
 		String statistics= panel.play.getStatistics();
@@ -114,6 +118,8 @@ public class MyThreadSimu extends Thread{
 				+splitStat[1]+"\n" //total time
 				+splitStat[3]+"\n" //time left
 				+splitStat[2]+"\n" // score
+				+"Average score on this map: "+Statistics.getAverageScore(GUI.mapName)+"\n" //avergae score
+				+"Best score on this map: "+Statistics.getBestScore(GUI.mapName)+"\n"   //best score
 				+splitStat[4]+"\n" //kill by ghosts
 				+splitStat[5],		//out of box
 				"Game Over : " + reason); //title
@@ -132,7 +138,7 @@ public class MyThreadSimu extends Thread{
 		directionPoint = new Point3D(target.x(), target.y(),0); // ~~~~need to be point in pixels~~~~
 		rotationRequired = 360
 				- (panel.orientation(panel.game.player.getPoint(), Map.pixels2polar(directionPoint.ix(), directionPoint.iy())));
-		System.out.println(rotationRequired);
+		System.out.println(rotationRequired+"YOYOYO");
 		return rotationRequired;
 	}
 	//reseting the game for the next step

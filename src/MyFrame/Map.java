@@ -67,8 +67,8 @@ public class Map {
 	  * @param int x,int y coodinates of the given point in pixels
 	  */
 	public static Point3D pixels2polar(int x,int y) {
-		double newX = rangeXpolar*(x/rangeXpixels)+PolarX0;
-		double newY = rangeYpolar*(y/rangeYpixels)+PolarY0;
+		double newX = ((rangeXpolar*(x/rangeXpixels)+PolarX0));
+		double newY = ((rangeYpolar*(y/rangeYpixels)+PolarY0));
 		return new Point3D(newX,newY,0);
 	}
 	/*

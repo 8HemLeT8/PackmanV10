@@ -1,4 +1,10 @@
 package GIS;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import Geom.Point3D;
 import MyFrame.Map;
 
@@ -8,7 +14,7 @@ private	double speed;
 private	int id;
 private	double radius;
 private Map map =new Map();
-
+public static BufferedImage ghostImage;
 	/*
 	 * @return speed
 	 */
@@ -66,6 +72,9 @@ private Map map =new Map();
 		this.location = new Point3D(Lat,Lon,Alt);
 		this.speed=Speed;
 		this.radius=radius1;
+		
+		try{ghostImage = ImageIO.read(new File("Ghost.jpg"));}
+		catch(IOException e) {System.out.println(e);}
 	}	
 	/*
 	 * @return location in pixels

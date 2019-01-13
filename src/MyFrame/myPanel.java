@@ -28,13 +28,14 @@ import GIS.Box;
 import GIS.Fruit;
 import GIS.Ghost;
 import GIS.Packman;
+import GIS.Player;
 import GIS.Types;
 import Geom.MyCoords;
 import Geom.Point3D;
 import Robot.Play;
 
 public class myPanel extends JPanel implements MouseListener {
-	BufferedImage backgroundImage, packmanImage, fruitImage, ghostImage, barrierImage, playerImage, playerImageCpy;
+	BufferedImage backgroundImage, packmanImage, fruitImage, ghostImage, barrierImage, playerImage;
 	JMenuItem menuItem;
 	JMenuBar menuBar;
 	ArrayList<Types> types;
@@ -52,6 +53,8 @@ public class myPanel extends JPanel implements MouseListener {
 	boolean addPlayer, playerExist ,fileLoaded;
 	int x = -1, y = -1;
 	double rotationRequired = 90;
+	//public static double GUI.ratioWidth=1;
+	//public static  double GUI.ratioHeight=1;
 	private BufferedImage myImage = null;
 	
 	/*
@@ -62,12 +65,17 @@ public class myPanel extends JPanel implements MouseListener {
 
 		try {
 			myImage = ImageIO.read(new File("Ariel1.png"));
-			packmanImage = ImageIO.read(new File("packman1.png"));
-			fruitImage = ImageIO.read(new File("fruit1.png"));
-			ghostImage = ImageIO.read(new File("Ghost.jpg"));
-			playerImage = ImageIO.read(new File("Player_Packman.png"));
-			playerImageCpy = playerImage;
-
+//			this.addComponentListener(new ComponentAdapter() { // detects window changing
+//				public void componentResized(ComponentEvent e) {
+//					dimensionSize = e.getComponent().getSize();
+//					GUI.ratioHeight = dimensionSize.getHeight() / myImage.getHeight();
+//					GUI.ratioWidth = dimensionSize.getWidth() / myImage.getWidth();
+//					System.out.println(GUI.ratioHeight + " | "+GUI.ratioWidth);
+//				}
+//			});		
+			//GUI.ratioHeight=GUI.GUI.ratioHeight;
+		//	GUI.ratioWidth=GUI.GUI.ratioWidth;
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
@@ -78,6 +86,8 @@ public class myPanel extends JPanel implements MouseListener {
 	 * paint method
 	 */
 	public void paintComponent(Graphics g) {
+	//	GUI.ratioHeight=GUI.GUI.ratioHeight;
+	//	GUI.ratioWidth=GUI.GUI.ratioWidth;
 		super.paintComponent(g);
 		g.drawImage(myImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		if (x != -1 && y != -1) {
@@ -97,11 +107,11 @@ public class myPanel extends JPanel implements MouseListener {
 							(int) (deltaY * GUI.ratioHeight));
 				}
 				if (addPlayer && !playerExist) { // if the addPlayer has been pressed&&the player isnt in the map yet
-					Point3D point = map.pixels2polar(x, y);
+					Point3D point = map.pixels2polar((int)(x*GUI.ratioWidth), (int)(y*GUI.ratioHeight));
 					game.player.setPoint(point);
-					g.drawImage(playerImage, (int) (game.player.getLocationInPixels().x()),
-							(int) game.player.getLocationInPixels().y(), (int) (2 * r * GUI.ratioWidth),
-							(int) (2 * r * GUI.ratioHeight), this);
+					g.drawImage(Player.playerImage, (int) (game.player.getLocationInPixels().x()),
+							(int) (game.player.getLocationInPixels().y()), (int) (2 * r ),
+							(int) (2 * r), this);
 					playerExist = true;
 				}
 
@@ -109,11 +119,11 @@ public class myPanel extends JPanel implements MouseListener {
 				if (playerExist) {
 					//System.out.println(rotationRequired); // calculate angle in degrees
 					AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(rotationRequired),
-							playerImage.getWidth()*GUI.ratioWidth/ 2, playerImage.getHeight()*GUI.ratioHeight / 2); // set up image rotation configuration
+							Player.playerImage.getWidth()*GUI.ratioWidth/ 2, Player.playerImage.getHeight()*GUI.ratioHeight / 2); // set up image rotation configuration
 					AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 					// Drawing the rotated image at the required drawing locations
-					g.drawImage((op.filter(playerImage, null)), (int) (game.player.getLocationInPixels().x() * GUI.ratioWidth),
-							(int) (game.player.getLocationInPixels().y() * GUI.ratioHeight), (int) (2 * r * GUI.ratioWidth),
+					g.drawImage((op.filter(Player.playerImage, null)), (int) (game.player.getLocationInPixels().x()),
+							(int) (game.player.getLocationInPixels().y() ), (int) (2 * r ),
 							(int) (2 * r * GUI.ratioHeight), this);
 
 				}
@@ -122,7 +132,7 @@ public class myPanel extends JPanel implements MouseListener {
 				itFru = game.fruits.iterator();
 				while (itFru.hasNext()) {
 					Fruit fTemp = itFru.next();
-					g.drawImage(fruitImage, (int) (fTemp.getLocationInPixels().x() * GUI.ratioWidth),
+					g.drawImage(Fruit.fruitImage, (int) (fTemp.getLocationInPixels().x() * GUI.ratioWidth),
 							(int) (fTemp.getLocationInPixels().y() * GUI.ratioHeight), (int) (2 * r * GUI.ratioWidth),
 							(int) (2 * r * GUI.ratioHeight), this);
 				}
@@ -130,7 +140,7 @@ public class myPanel extends JPanel implements MouseListener {
 				itPac = game.packmans.iterator(); // for the repaint we need to draw every packman again
 				while (itPac.hasNext()) {
 					Packman pTemp = itPac.next();
-					g.drawImage(packmanImage, (int) (pTemp.getLocationInPixels().x() * GUI.ratioWidth),
+					g.drawImage(Packman.packmanImage, (int) (pTemp.getLocationInPixels().x() * GUI.ratioWidth),
 							(int) (pTemp.getLocationInPixels().y() * GUI.ratioHeight), (int) (2 * r * GUI.ratioWidth),
 							(int) (2 * r * GUI.ratioHeight), this);
 				}
@@ -138,7 +148,7 @@ public class myPanel extends JPanel implements MouseListener {
 				itGhost = game.ghosts.iterator();
 				while (itGhost.hasNext()) {
 					Ghost pGhost = itGhost.next();
-					g.drawImage(ghostImage, (int) (pGhost.getLocationInPixels().x() * GUI.ratioWidth),
+					g.drawImage(Ghost.ghostImage, (int) (pGhost.getLocationInPixels().x() * GUI.ratioWidth),
 							(int) (pGhost.getLocationInPixels().y() * GUI.ratioHeight), (int) (2 * r * GUI.ratioWidth),
 							(int) (2 * r * GUI.ratioHeight), this);
 				}
@@ -153,12 +163,21 @@ public class myPanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		System.out.println("(" + e.getX() + "," + e.getY() + ")");
-		x = e.getX();
-		y = e.getY();
-		if (playerExist) {
-			directionPoint = new Point3D(e.getX(), e.getY(), 0);
+		x = (int)(e.getX()/GUI.ratioWidth);
+		y = (int)(e.getY()/GUI.ratioHeight);
+//		
+//		System.out.println("Pixel:" + x+","+y);		
+//		Point3D latLon = Map.pixels2polar(x, y);
+//		System.out.println("LatLon:" + latLon.y()+","+latLon.x());
+//		Point3D pixel = Map.polar2pixels(new Point3D(latLon.x(), latLon.y()));
+//		System.out.println("Pixel back:" + pixel.x()+","+pixel.y());
+//
+//		
+		
+		if (playerExist) 
+		{
+			directionPoint = new Point3D(x, y, 0);
 			rotationRequired = 360
 					- (orientation(game.player.getPoint(), Map.pixels2polar(directionPoint.ix(), directionPoint.iy())));
 			System.out.println(rotationRequired);

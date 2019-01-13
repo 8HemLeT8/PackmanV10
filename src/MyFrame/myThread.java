@@ -23,15 +23,19 @@ public class myThread extends Thread{
 	 * (non-Javadoc)
 	 * @see java.lang.Thread#run()
 	 */
-	public void run(){
+	public void run()
+	{
 		if(panel.play==null||panel.playerExist==false) return;
 		panel.play.setIDs(1911,1502); //setting my id and deliever it to the server
 		Point3D playerPosition = panel.game.player.getPoint();
-		panel.play.setInitLocation(playerPosition.y()*GUI.ratioHeight,playerPosition.x()*GUI.ratioWidth);
+		System.out.println(playerPosition+"&&&&");
+		
+		System.out.println("**********"+playerPosition);
+		panel.play.setInitLocation(playerPosition.y(),playerPosition.x());
 		panel.play.start(); // default max time is 100 seconds (1000*100 ms).
 		System.out.println(panel.rotationRequired+90); //DEBUG
 
-
+		System.out.println(panel.play.getBoard());
 		while(panel.play.isRuning()) {  //while there is still fruit and the time isn't over
 			panel.play.rotate((panel.rotationRequired+90)); //passing the "player" angle and make the server do one step
 			myGame=panel.play.getBoard();           //getting the stats from the board for the next step
@@ -41,7 +45,7 @@ public class myThread extends Thread{
 			}
 			panel.repaint();    //updating the linked panel
 			try {
-				Thread.sleep(65);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -67,7 +71,6 @@ public class myThread extends Thread{
 				+splitStat[2]+"\n" // score
 				+"Average score on this map: "+Statistics.getAverageScore(GUI.mapName)+"\n"
 				+"Best score on this map: "+Statistics.getBestScore(GUI.mapName)+"\n"
-				+"Best score on this map: "
 				+splitStat[4]+"\n" //kill by ghosts
 				+splitStat[5],		//out of box
 				"Game Over : " + reason); //title

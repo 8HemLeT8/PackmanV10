@@ -10,6 +10,11 @@ import MyFrame.Map;
 public class PathMaker {
 	static Map map =new Map();
 
+	/*
+	 * route calculation for fruit
+	 * @return return arraylist of points for the route
+	 * @param getting arraylist of fruits of the game and boxes and current player location
+	 */
 	public static ArrayList<Point3D> graphMake(ArrayList<Box> box ,ArrayList<Fruit> fruit,Point3D currentSrcLocation) {
 		int size = box.size()*4+2;
 		int []xx = new int [size-2]; //contains all points 4 for each box and 2 more for the src and trg
@@ -21,7 +26,7 @@ public class PathMaker {
 		Point3D [] graphArray = new Point3D[size]; //need to add source&target manually
 		ArrayList<Point3D> bestPath = new ArrayList<Point3D>();
 
-		int shift = 10;
+		int shift = 20;
 		for(Box myBox: box) {  // initilaized
 			xx[indexForX++]=(int)myBox.getMinInPixels().x()-shift;  // 
 			yy[indexForY++]=(int)myBox.getMinInPixels().y()+shift;  // Point (min x, min y) 

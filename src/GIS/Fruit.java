@@ -1,6 +1,11 @@
 package GIS;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.imageio.ImageIO;
 
 import GIS.*;
 import MyFrame.Map;
@@ -10,7 +15,7 @@ public class Fruit implements Types{
 	private Point3D p;
 	private double weight;
 	private Map N = new Map();
-
+	public static BufferedImage fruitImage=null;
 	/*
 	 * constructor for fruit for given doubles
 	 */
@@ -28,7 +33,8 @@ public class Fruit implements Types{
 		double weight=Double.parseDouble(weight1);
 		this.p=new Point3D(Lat,Lon,Alt);
 		this.weight=weight;
-
+		try{fruitImage = ImageIO.read(new File("fruit1.png"));}
+		catch(IOException e) {System.out.println(e);}
 	}
 	/*
 	 * @return return the weight
@@ -54,7 +60,8 @@ public class Fruit implements Types{
 	public Fruit(int PixelsX,int PixelsY) {
 		this.p=N.pixels2polar(PixelsX,PixelsY);
 		this.weight=1;
-
+		try{fruitImage = ImageIO.read(new File("fruit1.png"));}
+		catch(IOException e) {System.out.println(e);}
 	}
 	/*
 	 * (non-Javadoc)

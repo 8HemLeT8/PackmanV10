@@ -1,5 +1,11 @@
 package GIS;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import Geom.Point3D;
 import MyFrame.Map;
 
@@ -9,6 +15,13 @@ public class Player implements Types{
 	int speed;
 	double radius;
 	private Map map =new Map();
+	public static BufferedImage playerImage=null;
+	
+	public Player() {
+		if(playerImage==null) try{playerImage = ImageIO.read(new File("Player_Packman.png"));}
+		catch(IOException e) {System.out.println(e);}
+	}
+	
 	
 	/*
 	 * @return return point in pixel

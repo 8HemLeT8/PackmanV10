@@ -49,8 +49,8 @@ public class GUI extends JFrame {
 	JMenuItem menuItem;
 	JMenuBar menuBar;
 	Color colorsArr[];	
-	public static double ratioWidth;
-	public static double ratioHeight;
+	public static double ratioWidth=1;
+	public static double ratioHeight=1;
 	Dimension dimensionSize = new Dimension();
 	myPanel p = new myPanel();
 	public static String mapName="";
@@ -80,6 +80,7 @@ public class GUI extends JFrame {
 				ratioWidth = dimensionSize.getWidth() / backgroundImage.getWidth();
 			}
 		});
+		
 
 		colorsArr = new Color[13];
 		colorsArr[0] = Color.red;
