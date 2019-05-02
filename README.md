@@ -56,4 +56,4 @@ In the end of the game you will see your score.
  * The game is over when 100 seconds passed or all fruits were eaten. 
  You will get bonus points of 1 point for every second left (Incase all fruits were eaten).
 
-
+\# For more information please visit the _wiki_ page! 
